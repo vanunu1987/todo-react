@@ -1,3 +1,3 @@
 import "../styles.css";
 
-export default ({ children }) => <div className="todo">{children}</div>;
+export default () => <div className="todo"></div>;
