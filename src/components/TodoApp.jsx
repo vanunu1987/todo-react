@@ -1,28 +1,23 @@
-import React , { useEffect, useState }from "react";
+import React , { useContext, useState }from "react";
 import "../styles.css";
 
-import todoJson from "../todos.json"
 import TodoList from './TodoList'
 import { generateId } from "../utils";
+import { TodoContext } from '../App'
 
 export default () => {
-  useEffect(() =>{
-    setTimeout(()=>{
-      setTodoData([...todoJson])
-    },1000)
-  },[])
-  const [todoData, setTodoData] = useState([])
-  const [input, setInput] = useState()
+  const [input, setInput] = useState('')
   const addTodo = (ev) => {
     ev.preventDefault()
-    setTodoData([...todoData, {
+    todoContext.todoDispatch({action: 'addItem', data: {
       id: generateId(),
       text: input
-    }])
+    }})
     setInput('')
   }
-  const listContent = todoData.length ? 
-   <TodoList todoData={todoData} setTodoData={setTodoData}/> : 
+  const todoContext = useContext(TodoContext)
+  const listContent = todoContext.todoState.length ? 
+   <TodoList todoData={todoContext.todoState} setTodoData={todoContext.todoDispatch}/> : 
    <span>...</span>
   return <div>
     <span>Todo List</span>

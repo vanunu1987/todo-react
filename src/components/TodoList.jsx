@@ -6,13 +6,7 @@ import Todo from "./Todo"
 export default ({todoData, setTodoData}) => {
   
   const removeItem = (id) => {
-    const reduceTodos = todoData.reduce((reduceTodos, todo) => {
-      if (todo.id !== id) {
-        reduceTodos.push(todo)
-      }
-      return reduceTodos
-    },[])
-    setTodoData(reduceTodos)
+    setTodoData({action:'removeItem', data: id})
   }
   const items = todoData.map(todo => <Todo 
       key={todo.id} 
